@@ -8,12 +8,13 @@ global iniName := "setting.ini"
 ; 啟動時自動讀取上次設定檔setting.ini
 IniRead, buildName, %iniName%, AutoKeyboard, build
 getBuildConfig(buildName)
-; MsgBox, The value is %OutputVar%
+
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 
 ;  Win + Z : 測試記錄檔參數讀取
@@ -27,6 +28,7 @@ getBuildConfig(buildName)
 return 
 
 
+
 ; Win + Q : 開啟選單
 #Q::    
     CoordMode, Menu, Screen
@@ -37,13 +39,15 @@ return
     Loop , %sourceFolder%\*.* 
     {
         ; 建立選單
-        Menu, bdMenu, Add, %A_LoopFileName%, getBuildConfig
+        tempFileName := StrReplace(A_LoopFileName, "."A_LoopFileExt ,"")
+        Menu, bdMenu, Add, %tempFileName%, getBuildConfig
     }
     ; 選單生成位置 : 滑鼠目前位置
     MouseGetPos,MX,MY
     Menu, bdMenu, Show, % MX, % MY
     return
 return  
+
 
 
 ; 取得build設定檔內容，暫存至全域變數settingConfig
@@ -60,8 +64,13 @@ getBuildConfig(fileName){
 }
 
 
+
 ; 取得build設定檔路徑，預設在ahk目錄下的\build路徑
 getBuildPath(fileName=""){
-    buildPath = %A_ScriptDir%\build\%fileName%
+    if(fileName = ""){
+        buildPath = %A_ScriptDir%\build\
+    } else {
+        buildPath = %A_ScriptDir%\build\%fileName%.json
+    }
     return buildPath
 }

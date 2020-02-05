@@ -2,18 +2,18 @@
     "name": "lighting ball",
     "keyboard": [{
         "key": "1",
-        "time": "4200"
+        "time": "55555"
     }, {
         "key": "2",
-        "time": "6000"
+        "time": "55555"
     }, {
         "key": "3",
-        "time": "4800"
+        "time": "55555"
     }, {
         "key": "4",
-        "time": "5000"
+        "time": "55555"
     }, {
         "key": "5",
-        "time": "4800"
+        "time": "55555"
     }]
 }
