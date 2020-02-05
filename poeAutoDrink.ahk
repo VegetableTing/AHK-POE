@@ -1,6 +1,6 @@
 #Include %A_ScriptDir%\lib\JSON.ahk
 
-
+global settingConfig := 
 ; open build setting file
 FileRead settingFile, %buildPath%\bv.json
 ; string to json 
@@ -10,28 +10,38 @@ settingJson := JSON.Load(settingFile)
    
 
 
-#Z::
-Loop, 1{
-    CoordMode, Menu, Screen
-    CoordMode, Mouse, Screen
+; #Z::
+; Loop, 1{
+;     CoordMode, Menu, Screen
+;     CoordMode, Mouse, Screen
 
-    fileName = bv
-    name = bv.json
-    ; MsgBox %bv%
-    Menu, bdMenu, Add, TEST1, % fileName
-    ; Menu, bdMenu, Add, TEST2, % showFile(name)
+;     fileName = bv
+;     name = bv.json
+;     ; MsgBox %bv%
+;     Menu, bdMenu, Add, TEST1, % fileName
+;     ; Menu, bdMenu, Add, TEST2, % showFile(name)
 
   
-    MouseGetPos,MX,MY
-    Menu, bdMenu, Show, % MX, % MY
-    return
+;     MouseGetPos,MX,MY
+;     Menu, bdMenu, Show, % MX, % MY
+;     return
     
-    bv():
-        Run % "https://www.google.com"
-    return
+;     bv():
+;         Run % "https://www.google.com"
+;     return
    
-}
-; Return
+; }
+; ; Return
+
+#Z::
+    MsgBox "press Win + Z"
+    for index, element in settingConfig.drink ; Enumeration is the recommended approach in most cases.
+    {
+        Send % element.key
+        ; MsgBox % "Element index " . index . " is " . element.time
+    }
+return 
+
 
 
 ; Win + Q : open menu
@@ -51,7 +61,7 @@ Loop, 1{
         fileList = %fileList%`r`n%A_LoopFileName%  
         ; showFile(A_LoopFileName)
 
-        jsonFile = getFile(A_LoopFileName)
+        
         Menu, bdMenu, Add, %A_LoopFileName%, showFile
     }
     ; MsgBox %sourceFolder% : `r`n%fileList%
@@ -67,15 +77,12 @@ showFile(fileName){
     ; open build setting file
     FileRead settingFile, %filePath%
     ; string to json 
-    settingJson := JSON.Load(settingFile)
+    settingConfig := JSON.Load(settingFile)
     
-    MsgBox % getBuildPath(fileName)
-    MsgBox % settingJson.name
+    ; MsgBox % getBuildPath(fileName)
+    ; MsgBox % settingJson.name
 
-    for k,v in settingJson.drink{
-        data := settingJson.drink[v].key
-        MsgBox % data
-    } 
+    MsgBox choose setting config : %fileName%
 }
 
 
